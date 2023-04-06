@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@500&family=Ubuntu&display=swap');
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: Ubuntu, regular;
+}
+
+body {
+    background-color: rgb(29, 26, 26);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: #F33525;
+    margin-bottom: 5rem;
+    margin-top: 3rem;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.container {
+    width: 800px;
+    max-width: 80%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+
+.btn-grid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.btn {
+    font-size: 60%;
+    padding: 5px 10px;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(90deg, #6050DC 0%, #6050DC 100%);
+    border-radius: 4px;
+}
+
+.btn.correct {
+    background: #18FAA1;
+}
+
+.btn.wrong {
+    background: crimson;
+}
+
+.btn:hover {
+    cursor: pointer;
+    box-shadow: 0 0.4rem 1.4rem 0 #6050DC;
+    transition: transform 150ms;
+    transform: scale(1.04);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.judge {
+    margin: 15px;
+    color: grey;
+}
+
+.hide {
+    display: none
+}

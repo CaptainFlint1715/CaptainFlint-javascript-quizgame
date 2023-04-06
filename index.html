@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>JavaScript Coding Quiz</title>
+</head>
+
+<body>
+    <div class="container">
+        <div id="home" class="flex-column flex-center">
+            
+    <div class="container flex-column flex-center">
+        <h1 class="text-center">Welcome to JavaScript Quiz</h1>
+        <div id="question-container" class="hide">
+            <div id="question">Question</div>
+            
+            <div id="answer-buttons" class="btn-grid">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
+        </div>
+        <div class="controls">
+            <button id="start-btn" class="start-btn btn">Start JavaScript Quiz!</button>
+            <div class="judge hide" id="right-answer">Correct!</div>
+            <button id="next-btn" class="next-btn btn hide">Next Question</button>
+            <div class ="judge hide" id="wrong-answer">Incorrect!</div>
+        </div>
+    </div>
+
+    <script src = "script.js"></script>
+</body>
+</html>
