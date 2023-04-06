@@ -17,6 +17,11 @@ body {
     font-size: 34px;
 }
 
+#countdown {
+    color:#F33525;
+    position: 100%, 0%;
+}
+
 h1 {
     display: flex;
     justify-content: center;

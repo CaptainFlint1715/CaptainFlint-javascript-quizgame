@@ -10,29 +10,27 @@
 </head>
 
 <body>
-    <div class="container">
-        <div id="home" class="flex-column flex-center">
-            
-    <div class="container flex-column flex-center">
-        <h1 class="text-center">Welcome to JavaScript Quiz</h1>
-        <div id="question-container" class="hide">
-            <div id="question">Question</div>
-            
-            <div id="answer-buttons" class="btn-grid">
-                <button class="btn">Answer 1</button>
-                <button class="btn">Answer 2</button>
-                <button class="btn">Answer 3</button>
-                <button class="btn">Answer 4</button>
+    <div id="all" class="flex-column flex-center">
+        <p id="countdown" class="flex-column flex-center hide"></p>
+        <div class="container flex-column flex-center">
+            <h1 class="text-center">Welcome to JavaScript Quiz</h1>
+            <div id="question-container" class="hide">
+                <div id="question">Question</div>
+                <div id="answer-buttons" class="btn-grid">
+                    <button class="btn">Answer 1</button>
+                    <button class="btn">Answer 2</button>
+                    <button class="btn">Answer 3</button>
+                    <button class="btn">Answer 4</button>
+                </div>
+            </div>
+            <div class="controls">
+                <button id="start-btn" class="start-btn btn">Start JavaScript Quiz!</button>
+                <div class="judge hide" id="right-answer">Correct!</div>
+                <button id="next-btn" class="next-btn btn hide">Next Question</button>
+                <div class ="judge hide" id="wrong-answer">Incorrect!</div>
             </div>
         </div>
-        <div class="controls">
-            <button id="start-btn" class="start-btn btn">Start JavaScript Quiz!</button>
-            <div class="judge hide" id="right-answer">Correct!</div>
-            <button id="next-btn" class="next-btn btn hide">Next Question</button>
-            <div class ="judge hide" id="wrong-answer">Incorrect!</div>
-        </div>
     </div>
-
     <script src = "script.js"></script>
 </body>
 </html>

@@ -8,6 +8,7 @@ var questionEl = document.querySelector('#question')
 var answerButtonsEl = document.querySelector('#answer-buttons')
 var correct = document.querySelector('#right-answer')
 var incorrect = document.querySelector('#wrong-answer')
+var timer = document.querySelector('#countdown')
 
 
 startButton.addEventListener('click', startGame)
@@ -16,12 +17,30 @@ nextButton.addEventListener('click', () => {
     setNextQuestion()
 })
 
+function countdown() {
+    var timeLeft = 60;
+    var startTimer = setInterval(function () {
+        if (timeLeft > 0) {
+        timer.textContent = timeLeft
+        timeLeft--
+        } else {
+            timer.textContent = ''
+            clearInterval(startTimer)
+            // call function taking to score/end screen
+        }
+    } , 1000);
+}
+
 function startGame() {
+    countdown()
     startButton.classList.add('hide')
     header.classList.add('hide')
+    
     shuffledQuestions = questions.sort(() => Math.random() - 0.5)
     currentQuestionIndex = 0
+    timer.classList.remove('hide')
     questionContainerEl.classList.remove('hide')
+    
     setNextQuestion()
 }
 
