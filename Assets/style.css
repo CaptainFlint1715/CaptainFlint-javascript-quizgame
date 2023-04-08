@@ -69,6 +69,8 @@ h1 {
     margin: 20px 0;
 }
 
+
+
 .btn {
     font-size: 60%;
     padding: 5px 10px;
@@ -77,6 +79,10 @@ h1 {
     color: white;
     background: linear-gradient(90deg, #6050DC 0%, #6050DC 100%);
     border-radius: 4px;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
 }
 
 .btn.correct {
@@ -126,4 +132,8 @@ input {
     transition-timing-function: ease, ease;
     vertical-align: middle;
     width: 100%;
+  }
+
+  ul {
+    font-size: 60%;
   }

@@ -1,8 +1,3 @@
-// set incorrect answers to subtract time from countdown
-// set display of "correct" or "incorrect" text on screen contingent upon answers
-// set up results page with form that stores score, along with stored data of high scores
-
-
 var startButton = document.querySelector('#start-btn')
 var header = document.querySelector('h1')
 var nextButton = document.querySelector('#next-btn')
@@ -17,11 +12,8 @@ var rightMsg = document.querySelector('#right-answer')
 var wrongMsg = document.querySelector('#wrong-answer')
 var timer = document.querySelector('#countdown')
 var score = 0
-// var quizResults = 'quizResults'
-// var scoresString = localStorage.getItem(quizResults)
-// savedResults = JSON.parse(scoresString) ?? []
-
-
+var savedResults = JSON.parse(localStorage.getItem('quizResults')) || []
+var timeLeft = 30
 
 startButton.addEventListener('click', startGame)
 
@@ -29,36 +21,35 @@ nextButton.addEventListener('click', () => {
     currentQuestionIndex++
     setNextQuestion()
 })
-
-
-
+// begins quizgame on click of start button
 function startGame() {
     countdown()
+    timer.classList.remove('hide')
     startButton.classList.add('hide')
     header.classList.add('hide')
-    
+    // generates assortment of questions in random order
     shuffledQuestions = questions.sort(() => Math.random() - 0.5)
     currentQuestionIndex = 0
-    timer.classList.remove('hide')
+    
     questionContainerEl.classList.remove('hide')
     
     setNextQuestion()
 }
 
 function countdown() {
-    var timeLeft = 60;
     var startTimer = setInterval(function () {
         if (timeLeft > 0) {
         timer.textContent = timeLeft
-        timeLeft--
+        --timeLeft
         } else {
             timer.textContent = ''
+            genResult()
             clearInterval(startTimer)
-            // call function taking to score/end screen
         }
-    } , 1000);
+          
+    }, 1000,)
 }
-
+// presents next question in random order
 function setNextQuestion() {
     resetState()
     showQuestion(shuffledQuestions[currentQuestionIndex])
@@ -70,6 +61,7 @@ function showQuestion(question) {
         var button = document.createElement('button')
         button.innerText = answer.text
         button.classList.add('btn')
+        
         if (answer.correct) {
             button.dataset.correct = answer.correct
         }
@@ -77,7 +69,7 @@ function showQuestion(question) {
         answerButtonsEl.appendChild(button)
     })
 }
-
+// clears card to be replaced with new question/answers
 function resetState() {
     nextButton.classList.add('hide')
     while (answerButtonsEl.firstChild) {
@@ -87,33 +79,44 @@ function resetState() {
     rightMsg.classList.add('hide')
     wrongMsg.classList.add('hide')
 }
+// subtracts time from the clock upon incorrect answer
+function subtract() {
+    timeLeft -= 3
+    return timeLeft
+}
 
 function selectAnswer(e) {
+    
+    e.preventDefault()
     var selectedBtn = e.target
     var correct = selectedBtn.dataset.correct
-
+    // assigns proper data attributes for given questions upon answer selection
     Array.from(answerButtonsEl.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
-        
-        })
-
-    if (shuffledQuestions.length > currentQuestionIndex + 1) {
-        nextButton.classList.remove('hide')
-    } else {
-        resultsButton.classList.remove('hide')
-    }    
-
+    })
+    
     if (selectedBtn = correct) {
         rightMsg.classList.remove('hide')
         scoreKeeper()
     } else {
+        subtract()
         wrongMsg.classList.remove('hide')
 
     }
+
+
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+        nextButton.classList.remove('hide')
+        nextButton.disabled = false
+    } else {
+        resultsButton.classList.remove('hide')
+        resultsButton.disabled = false
+        timer.classList.add('hide')
+    }   
 }
 
 
-
+// tracks correct answers
 function scoreKeeper() {
     score++
     return score
@@ -134,11 +137,13 @@ function clearStatusClass(element) {
 }
 
 resultsButton.addEventListener('click', genResult)
-
+// creates results page upon completion of quiz or expiration of time
 function genResult() {
     resetState()
+    
     resultsButton.classList.add('hide')
     questionEl.textContent = score + ' out of 5'
+    
 
     var inputBox = document.createElement('input')
     inputBox.setAttribute('type', 'text')
@@ -153,14 +158,10 @@ function genResult() {
     submitBtn.setAttribute('class', 'btn')
     submitBtn.textContent = "Save Result!"
     questionContainerEl.appendChild(submitBtn)
-
+    
     submitBtn.addEventListener('click', function(event) {
         event.preventDefault()
         var initials = inputBox.value.trim()
-        
-        //var arrStorage = JSON.parse(localStorage.getItem('quizResults'))
-        
-
         
        if (initials.length !== 2) {
             msgBox.textContent = "Submission must be two characters."
@@ -170,24 +171,30 @@ function genResult() {
             var newScore = {initials, score}
             inputBox.setAttribute('class', 'hide')
             submitBtn.setAttribute('class', 'hide')
-            savedResults = JSON.parse(localStorage.getItem('quizResults')) || []
             savedResults.push(newScore)
             localStorage.setItem('quizResults', JSON.stringify(savedResults))
-            highScores.classList.remove('hide')
-            
+            highScores.classList.remove('hide')  
         }
+        
     })
+    
 
         
 }
-
-
+// creates list of past scores with corresponding attempt names
 highScores.addEventListener('click', function() {
-    scoreList = document.createElement('ol')
+    scoreList = document.createElement('ul')
+    
+    for (var i = 0; i < savedResults.length; i++) {
+        var listEl = document.createElement('li')
+        listEl.textContent = savedResults[i].initials + ": " + savedResults[i].score + "/5"
+        scoreList.appendChild(listEl)
+    }
     questionContainerEl.appendChild(scoreList)
+    highScores.classList.add('hide')
 })
 
-
+// array of possible questions and their corresponding answer choices
 var questions = [
     {
         question: 'What is/are contained within the parentheses of a function declaration?',
